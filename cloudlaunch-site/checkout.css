@@ -1,0 +1,454 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #F5F8FA;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1358px;
+    margin: 0 auto;
+}
+
+.rectangle {
+    position: absolute;
+    width: 1200px;
+    height: 2px;
+    top: 99px;
+    background: #E0E6EA;
+}
+
+header img {
+    width: 200px;
+    height: 39px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 476px;
+    height: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #1D2C3C;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.account-btn {
+    padding: 8px 15px;
+    border: 2px solid #646E7A;
+    color: #1D2C3C;
+    background: #F5F8FA;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 700;
+    width: 91px;
+}
+
+.account-btn:hover {
+    background-color: #1179BF;
+    color: #F5F8FA;
+}
+
+/* Checkout Container */
+.checkout-container {
+    display: flex;
+    max-width: 892px;
+    margin: 50px auto ;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section */
+.checkout-box {
+    flex: 2;
+    padding: 30px;
+}
+
+h2 {
+    color: #1D2C3C;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    width: 161px;
+    height: 54px;
+}
+
+.rectangle-inner {
+        width: 580px;
+        height: 2px;
+        margin-bottom: 40px;
+        background: #F5F7FA;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.section h3 {
+    color: #1D2C3C;
+    font-size: 18px;
+    line-height: 21.6px;
+    font-weight: 700;
+    letter-spacing: -0.16px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.number {
+    background: #F5F8FA;
+    color: #548BC5;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    /* left: 311px;
+    top: 341px; */
+    line-height: 19.2px;
+    text-align: center;
+    border: 2px solid #548BC5;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.form-name {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px 0;
+    gap: 30px;
+}
+
+.form-email input[type=email] {
+    display: flex;
+    flex-direction: column;
+    color: #646E7A;
+    background-color: #EDEFF2;
+    border: 1px solid #EDEFF2;
+    width: 80%;
+    border-radius: 5px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    letter-spacing: 0px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    margin-bottom: 5px;
+    color: #1D2C3C;
+}
+
+input[type=text] {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    color: #646E7A;
+    background-color: #EDEFF2;
+    border: 1px solid #EDEFF2;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+}
+
+.card-input {
+    /* display: flex;
+    flex-direction: row;
+    width: 100%; */
+    display: grid;
+    grid-template-columns: 2fr 0.5fr 0.5fr;
+    background-color: #EDEFF2;
+    border-radius: 4px;
+    margin-bottom: 0;
+}
+
+.card-input input {
+    flex: 1;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #008060;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.buy-btn:hover {
+    background: #006645;
+}
+
+/* Help Section */
+.help {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    font-size: 14px;
+}
+
+.help-text {
+    display: flex;
+    align-items: center; /* Align question mark and text horizontally */
+    margin-bottom: 20px; /* Add space between help text and Stripe logo */
+}
+
+.question-mark {
+    width: 20px;
+    height: 20px;
+    background-color: #F5F8FA;
+    color: #548BC5;
+    border: 2px solid #548BC5;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: center;
+    margin-right: 10px; /* Space between question mark and text */
+}
+
+.help p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.help a {
+    color: #1179BF;
+}
+
+.stripe-logo {
+    text-align: center; /* Center the Stripe logo horizontally */
+    width: 92px;
+    height: 20.1px;
+    opacity: 50.2;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 1;
+    background: #1179BF;
+    color: #fff;
+    padding: 30px;
+    border-radius: 0 6px 6px 0;
+    width: 312px;
+    height: 795px;
+}
+
+.sidebar h3 {
+    font-size: 20px;
+    width: 93px;
+    height: 24px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.01px;
+}
+
+.sidebar h1 {
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 72px;
+    letter-spacing: -0.01px;
+}
+
+.sidebar span {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.6px;
+    letter-spacing: -0.01px;
+}
+
+.renew {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.01px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    font-size: 14px;
+    margin: 10px 0 0 0;
+    /* padding-bottom: 10px; */
+    display: flex; /* Use Flexbox for alignment */
+    align-items: center; /* Vertically center the image and text */
+}
+
+.sidebar ul li img {
+    margin-right: 10px; /* Add space between the image and text */
+    width: 20px; /* Adjust the size of the check-mark image if needed */
+    height: 20px; /* Adjust the size of the check-mark image if needed */
+}
+
+/* .sidebar a {
+    color: white;
+    text-decoration: underline;
+} */
+
+.switch-plan {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    letter-spacing: -0.01;
+    margin-top: 30px;
+    width: 186;
+    height: 50px;
+}
+
+.switch-plan .num20 {
+    font-weight: 700;
+}
+
+.switch-plan a {
+    color: white;
+    font-weight: 700;
+}
+
+.sidebar .rect {
+    width: 180px;
+    height: 1.5px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: #B9F5FF;
+    opacity: 50.36%;
+}
+
+
+/* Testimonial */
+.testimonial {
+    margin-top: 20px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+blockquote {
+    width: 227px;
+    height: 96px;
+    line-height: 24px;
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 10px;
+    letter-spacing: -0.01px;
+}
+
+.testimonial-user {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.testimonial-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.testimonial-user img:hover {
+    color: #D8D8D8;
+    border: solid 1px #D8D8D8;
+    box-shadow: 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 0 0 20px 0;
+    font-size: 12px;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+}
+
+footer a {
+    color: #1179BF;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+        width: 90%;
+    }
+    header {
+        flex-direction: column;
+    }
+    .rectangle {
+        width: 400px;
+        margin-top: 10px;
+    }
+    nav {
+        gap: 20px;
+        justify-content: center;
+    }
+    blockquote {
+        width: 320px;
+        height: 96px;
+        line-height: 24px;
+        font-size: 18px;
+        font-style: italic;
+        margin-top: 10px;
+        letter-spacing: -0.01px;
+    }
+    .checkout-box, .sidebar {
+        width: 100%;
+    }
+    .sidebar {
+        text-align: center;
+    }
+    .input-group {
+        flex-direction: column;
+    }
+    .card-input {
+        flex-direction: column;
+    }
+}
+.sidebar .rect {
+    width: 330px;
+    height: 1.5px;
+
+}
