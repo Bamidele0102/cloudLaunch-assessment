@@ -1,42 +1,72 @@
-CloudLaunch AWS Deployment - Semester 3 Assessment
-This repository contains the configuration and documentation for deploying the CloudLaunch product on AWS, demonstrating core competencies in S3, IAM, and VPC.
+# CloudLaunch AWS Deployment – Semester 3 Assessment
 
-Task 1: Static Website Hosting & Secure S3 Access with IAM
-Objective
-Host a public static website on S3 and configure secure, granular access to private storage buckets using a dedicated IAM user with a least-privilege policy.
+This repository documents the deployment of the CloudLaunch product on AWS, showcasing skills in S3, IAM, and VPC.
 
-Implementation Summary
-S3 Buckets Configuration:
+---
 
-cloudlaunch-site-bucket: Configured for public static website hosting. A bucket policy grants public s3:GetObject permission. An index.html file was uploaded as the default document.
+## Table of Contents
 
-cloudlaunch-private-bucket: Blocked all public access. Only the designated IAM user has programmatic access to its contents.
+- [CloudLaunch AWS Deployment – Semester 3 Assessment](#cloudlaunch-aws-deployment--semester-3-assessment)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Task 1: S3 Static Website \& IAM Access](#task-1-s3-static-website--iam-access)
+    - [Objectives](#objectives)
+    - [Implementation](#implementation)
+      - [S3 Buckets](#s3-buckets)
+      - [CloudFront Distribution (Bonus)](#cloudfront-distribution-bonus)
+      - [IAM User \& Policy](#iam-user--policy)
+    - [Access Links](#access-links)
+    - [IAM Policy](#iam-policy)
+  - [Task 2: Secure VPC Network Design](#task-2-secure-vpc-network-design)
+    - [Objectives](#objectives-1)
+    - [Implementation](#implementation-1)
+      - [VPC Foundation](#vpc-foundation)
+      - [Subnet Architecture](#subnet-architecture)
+      - [Routing](#routing)
+      - [Security Groups](#security-groups)
+      - [IAM Integration](#iam-integration)
 
-cloudlaunch-visible-only-bucket: Blocked all public access. The IAM user can list the bucket's existence but is explicitly denied access to its contents.
+---
 
-CloudFront Distribution (Bonus):
+## Overview
 
-A CloudFront distribution was created with an Origin Access Identity (OAI) for the cloudlaunch-site-bucket.
+This project demonstrates AWS deployment best practices, including secure S3 hosting, granular IAM permissions, and multi-tier VPC architecture.
 
-The S3 bucket policy was automatically updated to only allow access from the CloudFront OAI, enhancing security and enabling HTTPS.
+---
 
-The distribution is configured to redirect HTTP to HTTPS for secure browsing.
+## Task 1: S3 Static Website & IAM Access
 
-IAM User and Policy:
+### Objectives
 
-Created a user cloudlaunch-user with console access and a forced password reset on first login.
+- Host a public static website on S3.
+- Secure private S3 buckets with least-privilege IAM policies.
 
-Attached a custom, granular IAM policy that strictly follows the principle of least privilege, allowing only the required actions on the specified resources.
+### Implementation
 
-Access Links
-S3 Static Website Endpoint: http://cloudlaunch-site-bucket.s3-website-us-east-1.amazonaws.com
+#### S3 Buckets
 
-CloudFront Distribution (HTTPS): https://d3q8vq8sukzzcloudfront.net (Example URL)
+- **cloudlaunch-site-bucket**: Public static website hosting with an index.html. Public `s3:GetObject` permission via bucket policy.
+- **cloudlaunch-private-bucket**: All public access blocked. Only a dedicated IAM user can access contents programmatically.
+- **cloudlaunch-visible-only-bucket**: All public access blocked. IAM user can list the bucket but cannot access objects.
 
-IAM User Policy (JSON)
-The following custom policy is attached to the cloudlaunch-user:
+#### CloudFront Distribution (Bonus)
 
-json
+- Configured with Origin Access Identity (OAI) for `cloudlaunch-site-bucket`.
+- S3 bucket policy restricts access to CloudFront OAI.
+- HTTP redirected to HTTPS.
+
+#### IAM User & Policy
+
+- Created `cloudlaunch-user` with console access and forced password reset.
+- Attached custom IAM policy for least-privilege access.
+
+### Access Links
+
+- **S3 Website**: [http://cloudlaunch-site-bucket-01.s3-website-eu-west-1.amazonaws.com/](http://cloudlaunch-site-bucket-01.s3-website-eu-west-1.amazonaws.com/)
+
+### IAM Policy
+
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -91,48 +121,40 @@ json
         }
     ]
 }
-Task 2: Secure VPC Network Design
-Objective
-Design and implement a secure, multi-tiered Virtual Private Cloud (VPC) network architecture to provide a logically isolated environment for future application deployment.
+```
 
-Implementation Summary
-VPC Foundation:
+---
 
-Created the VPC cloudlaunch-vpc with the CIDR block 10.0.0.0/16.
+## Task 2: Secure VPC Network Design
 
-Created and attached an Internet Gateway (cloudlaunch-igw) to facilitate internet access for public resources.
+### Objectives
 
-Subnet Architecture:
+- Design a secure, multi-tier VPC for future application deployment.
 
-Created three subnets with exact, specified CIDR blocks for clear separation of layers:
+### Implementation
 
-Public Subnet (10.0.1.0/24): For public-facing resources like Load Balancers. Associated with a public route table.
+#### VPC Foundation
 
-Application Subnet (10.0.2.0/24): For private application servers (e.g., EC2 instances). Associated with a private route table.
+- **VPC Name**: `cloudlaunch-vpc`
+- **CIDR Block**: `10.0.0.0/16`
+- **Internet Gateway**: `cloudlaunch-igw` attached for public access.
 
-Database Subnet (10.0.3.0/28): For private database instances (e.g., RDS). Associated with a separate private route table for maximum isolation.
+#### Subnet Architecture
 
-Routing:
+- **Public Subnet**: `10.0.1.0/24` (for load balancers, public resources)
+- **Application Subnet**: `10.0.2.0/24` (for EC2 application servers)
+- **Database Subnet**: `10.0.3.0/28` (for RDS, private databases)
 
-Public Route Table (cloudlaunch-public-rt): Contains a route sending 0.0.0.0/0 traffic to the Internet Gateway.
+#### Routing
 
-Private Route Tables (cloudlaunch-app-rt, cloudlaunch-db-rt): Have no route to the internet, ensuring their resources remain private.
+- **Public Route Table**: `cloudlaunch-public-rt` routes `0.0.0.0/0` to Internet Gateway.
+- **Private Route Tables**: `cloudlaunch-app-rt`, `cloudlaunch-db-rt` have no internet routes.
 
-Security Groups (Virtual Firewalls):
+#### Security Groups
 
-cloudlaunch-app-sg: Configured to allow HTTP (port 80) traffic only from within the VPC (10.0.0.0/16).
+- **cloudlaunch-app-sg**: Allows HTTP (port 80) only from within VPC (`10.0.0.0/16`).
+- **cloudlaunch-db-sg**: Allows MySQL (port 3306) only from Application Subnet (`10.0.2.0/24`).
 
-cloudlaunch-db-sg: Configured to allow MySQL (port 3306) traffic only from the Application Subnet (10.0.2.0/24), enforcing strict database access controls.
+#### IAM Integration
 
-IAM Integration:
-
-The cloudlaunch-user policy was updated with a VPCReadOnly statement, granting the ability to list and describe VPC components for viewing and troubleshooting without modification rights.
-
-Submission Details
-AWS Account ID: 123456789012
-
-IAM User Name: cloudlaunch-user
-
-AWS Console Sign-In URL: https://123456789012.signin.aws.amazon.com/console
-
-User Password: Enforced change on first login. Temporary password shared via secured .csv file.
+- `cloudlaunch-user` policy includes VPC read-only permissions for viewing/troubleshooting.
