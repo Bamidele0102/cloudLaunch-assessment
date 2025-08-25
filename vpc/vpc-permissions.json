@@ -2,37 +2,6 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ListAllBuckets",
-            "Effect": "Allow",
-            "Action": "s3:ListAllMyBuckets",
-            "Resource": "*"
-        },
-        {
-            "Sid": "ListSpecificBuckets",
-            "Effect": "Allow",
-            "Action": "s3:ListBucket",
-            "Resource": [
-                "arn:aws:s3:::cloudlaunch-site-bucket-01",
-                "arn:aws:s3:::cloudlaunch-private-bucket-01",
-                "arn:aws:s3:::cloudlaunch-visible-only-bucket-01"
-            ]
-        },
-        {
-            "Sid": "ReadOnlySiteBucket",
-            "Effect": "Allow",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::cloudlaunch-site-bucket-01/*"
-        },
-        {
-            "Sid": "ReadWritePrivateBucket",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::cloudlaunch-private-bucket-01/*"
-        },
-        {
             "Sid": "VPCReadOnly",
             "Effect": "Allow",
             "Action": [

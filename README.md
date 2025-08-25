@@ -13,7 +13,6 @@ This repository documents the deployment of the CloudLaunch product on AWS, show
     - [Objectives](#objectives)
     - [Implementation](#implementation)
       - [S3 Buckets](#s3-buckets)
-      - [CloudFront Distribution (Bonus)](#cloudfront-distribution-bonus)
       - [IAM User \& Policy](#iam-user--policy)
     - [Access Links](#access-links)
     - [IAM Policy](#iam-policy)
@@ -49,12 +48,6 @@ This project demonstrates AWS deployment best practices, including secure S3 hos
 - **cloudlaunch-private-bucket**: All public access blocked. Only a dedicated IAM user can access contents programmatically.
 - **cloudlaunch-visible-only-bucket**: All public access blocked. IAM user can list the bucket but cannot access objects.
 
-#### CloudFront Distribution (Bonus)
-
-- Configured with Origin Access Identity (OAI) for `cloudlaunch-site-bucket`.
-- S3 bucket policy restricts access to CloudFront OAI.
-- HTTP redirected to HTTPS.
-
 #### IAM User & Policy
 
 - Created `cloudlaunch-user` with console access and forced password reset.
@@ -77,14 +70,20 @@ This project demonstrates AWS deployment best practices, including secure S3 hos
             "Resource": "*"
         },
         {
-            "Sid": "ListObjectsInBuckets",
+            "Sid": "ListSpecificBuckets",
             "Effect": "Allow",
             "Action": "s3:ListBucket",
             "Resource": [
-                "arn:aws:s3:::cloudlaunch-site-bucket",
-                "arn:aws:s3:::cloudlaunch-private-bucket",
-                "arn:aws:s3:::cloudlaunch-visible-only-bucket"
+                "arn:aws:s3:::cloudlaunch-site-bucket-01",
+                "arn:aws:s3:::cloudlaunch-private-bucket-01",
+                "arn:aws:s3:::cloudlaunch-visible-only-bucket-01"
             ]
+        },
+        {
+            "Sid": "ReadOnlySiteBucket",
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::cloudlaunch-site-bucket-01/*"
         },
         {
             "Sid": "ReadWritePrivateBucket",
@@ -93,19 +92,7 @@ This project demonstrates AWS deployment best practices, including secure S3 hos
                 "s3:GetObject",
                 "s3:PutObject"
             ],
-            "Resource": "arn:aws:s3:::cloudlaunch-private-bucket/*"
-        },
-        {
-            "Sid": "ReadPublicSiteBucket",
-            "Effect": "Allow",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::cloudlaunch-site-bucket/*"
-        },
-        {
-            "Sid": "DenyVisibleBucketAccess",
-            "Effect": "Deny",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::cloudlaunch-visible-only-bucket/*"
+            "Resource": "arn:aws:s3:::cloudlaunch-private-bucket-01/*"
         },
         {
             "Sid": "VPCReadOnly",
